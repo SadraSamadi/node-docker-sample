@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: .
+    image: untitled-app
+    container_name: untitled-app
+    volumes:
+      - .:/untitled
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      DB_HOST: untitled-db
+      DB_NAME: untitled
+      DB_USER: root
+      DB_PASS: secret
+
+  db:
+    image: mariadb
+    container_name: untitled-db
+    environment:
+      MYSQL_DATABASE: untitled
+      MYSQL_ROOT_PASSWORD: secret

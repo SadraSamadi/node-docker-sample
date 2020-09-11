@@ -1,0 +1,6 @@
+{
+  "extends": "node-app-scripts/config/tsconfig.json",
+  "include": [
+    "src"
+  ]
+}
