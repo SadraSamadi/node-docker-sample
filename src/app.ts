@@ -15,6 +15,19 @@ const db = {
   pass: process.env.DB_PASS || ''
 };
 
+const app = express();
+
+app.use(json());
+app.use(urlencoded({extended: false}));
+app.use(morgan('combined'));
+
+app.get('/', (req, res) => {
+  let index = asset('index.html');
+  res.sendFile(index);
+});
+
+app.use('/api', api);
+
 (async () => {
 
   await createConnection({
@@ -28,19 +41,6 @@ const db = {
     synchronize: true,
     logging: 'all'
   });
-
-  const app = express();
-
-  app.use(json());
-  app.use(urlencoded({extended: false}));
-  app.use(morgan('combined'));
-
-  app.get('/', (req, res) => {
-    let index = asset('index.html');
-    res.sendFile(index);
-  });
-
-  app.use('/api', api);
 
   let listen = app.listen.bind(app);
   await promisify(listen)(port);
