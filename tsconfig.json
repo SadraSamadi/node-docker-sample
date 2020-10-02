@@ -1,5 +1,5 @@
 {
-  "extends": "node-app-scripts/config/tsconfig.json",
+  "extends": "@node-app/scripts/config/tsconfig.json",
   "include": [
     "src"
   ]

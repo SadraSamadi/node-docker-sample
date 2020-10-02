@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import faker from 'faker';
+import _ from 'lodash';
 import {Post} from './post';
 
 const api = Router();
@@ -24,8 +25,8 @@ api.get('/:id', async (req, res) => {
 
 api.patch('/:id', async (req, res) => {
   let post = await Post.findOne(req.params.id);
-  post.title = req.body.title;
-  post.body = req.body.body;
+  let body = _.pick(req.body, 'title', 'body');
+  _.assign(post, body);
   await post.save();
   res.json(post);
 });

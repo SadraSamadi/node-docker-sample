@@ -1,25 +1,32 @@
-version: '3.8'
+version: "3.8"
 
 services:
 
   app:
-    build: .
-    image: untitled-app
-    container_name: untitled-app
-    volumes:
-      - .:/untitled
+    image: node
+    working_dir: /untitled
+    command: yarn start
     ports:
-      - 3000:3000
+      - "3000:3000"
     environment:
       PORT: 3000
-      DB_HOST: untitled-db
+      DB_HOST: db
+      DB_PORT: 3306
       DB_NAME: untitled
-      DB_USER: root
+      DB_USER: untitled
       DB_PASS: secret
+    volumes:
+      - .:/untitled
 
   db:
     image: mariadb
-    container_name: untitled-db
     environment:
       MYSQL_DATABASE: untitled
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: untitled
+      MYSQL_PASSWORD: secret
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+
+  admin:
+    image: adminer
+    ports:
+      - "3001:8080"
