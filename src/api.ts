@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import faker from 'faker';
+import faker from 'faker/locale/en';
 import _ from 'lodash';
 import {Post} from './post';
 
